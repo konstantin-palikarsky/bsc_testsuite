@@ -1,13 +1,15 @@
-package main.workflows.requests;
+package testsuite.workflows.requests;
 
-import main.apis.ThesisApi;
+
+import testsuite.apis.ThesisApi;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import static main.workflows.requests.Commons.getStringHttpResponse;
+import static testsuite.workflows.requests.Commons.getStringHttpResponse;
+
 
 public class SearchLabelsRequest {
     ThesisApi api;

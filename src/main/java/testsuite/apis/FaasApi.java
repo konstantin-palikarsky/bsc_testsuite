@@ -1,4 +1,4 @@
-package main.apis;
+package testsuite.apis;
 
 public class FaasApi implements ThesisApi {
 

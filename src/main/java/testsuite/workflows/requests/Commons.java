@@ -1,4 +1,4 @@
-package main.workflows.requests;
+package testsuite.workflows.requests;
 
 import java.io.IOException;
 import java.net.http.HttpClient;

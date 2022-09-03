@@ -1,12 +1,9 @@
-package main;
+package testsuite;
 
-import main.apis.MonolithApi;
-import main.apis.ThesisApi;
-import main.workflows.ReadingWorkflow;
-import main.workflows.Workflow;
-import main.workflows.requests.SearchLabelsRequest;
-
-import java.net.http.HttpResponse;
+import testsuite.apis.MonolithApi;
+import testsuite.apis.ThesisApi;
+import testsuite.workflows.ReadingWorkflow;
+import testsuite.workflows.Workflow;
 
 public class Main {
     public static void main(String[] args) {

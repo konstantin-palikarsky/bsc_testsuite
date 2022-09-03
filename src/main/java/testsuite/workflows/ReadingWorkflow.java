@@ -1,9 +1,10 @@
-package main.workflows;
+package testsuite.workflows;
 
-import main.apis.ThesisApi;
-import main.workflows.requests.GetStoryRequest;
-import main.workflows.requests.SearchLabelsRequest;
-import main.workflows.requests.SearchStoriesRequest;
+
+import testsuite.apis.ThesisApi;
+import testsuite.workflows.requests.GetStoryRequest;
+import testsuite.workflows.requests.SearchLabelsRequest;
+import testsuite.workflows.requests.SearchStoriesRequest;
 
 public class ReadingWorkflow implements Workflow {
 

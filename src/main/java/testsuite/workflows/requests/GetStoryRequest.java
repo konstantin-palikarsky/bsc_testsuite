@@ -1,6 +1,7 @@
-package main.workflows.requests;
+package testsuite.workflows.requests;
 
-import main.apis.ThesisApi;
+
+import testsuite.apis.ThesisApi;
 
 import java.io.IOException;
 import java.net.URI;
