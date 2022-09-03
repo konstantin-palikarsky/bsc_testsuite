@@ -1,11 +1,12 @@
 package testsuite.workflows;
 
+import org.json.JSONObject;
 import testsuite.apis.ThesisApi;
+import testsuite.dtos.TokenDto;
 import testsuite.dtos.UserDto;
 import testsuite.workflows.requests.CreateUserRequest;
 import testsuite.workflows.requests.LoginRequest;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
@@ -24,8 +25,11 @@ public class AuthWorkflow implements Workflow {
         var createUserResponse =
                 createUser.create(user);
         var loginResponse = login.login(user);
+        var jsonToken = new JSONObject(loginResponse.body());
+        var token = new TokenDto();
+        token.setToken(jsonToken.get("token").toString());
 
-        System.out.println(loginResponse.body());
+        System.out.println(token.getToken());
     }
 
     private String randomString() {
