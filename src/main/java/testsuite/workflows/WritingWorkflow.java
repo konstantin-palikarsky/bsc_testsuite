@@ -1,5 +1,6 @@
 package testsuite.workflows;
 
+import org.json.JSONObject;
 import testsuite.apis.ThesisApi;
 import testsuite.dtos.LabelDto;
 import testsuite.dtos.StoryDto;
@@ -9,6 +10,7 @@ import testsuite.workflows.requests.CreateStoryRequest;
 import testsuite.workflows.requests.DeleteStoryRequest;
 import testsuite.workflows.requests.UpdateStoryRequest;
 
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
@@ -30,8 +32,20 @@ public class WritingWorkflow implements Workflow {
 
         var labelResponse = createLabel.create(getLabel());
         var storyResponse = createStory.create(getStory());
-        var deleteResponse = deleteStory.deleteById(30);
-        var updateResponse = updateStory.updateById(getStoryForUpdate(), 32);
+
+        long createdStoryId = getStoryIdFromResponse(storyResponse);
+
+        var updateResponse = updateStory.updateById(getStoryForUpdate(), createdStoryId);
+        var deleteResponse = deleteStory.deleteById(createdStoryId);
+    }
+
+    private long getStoryIdFromResponse(HttpResponse<String> storyResponse) {
+        var responseString = storyResponse.body();
+        var jsonResponseData = new JSONObject(responseString).get("data");
+
+        var jsonStory = new JSONObject(jsonResponseData.toString());
+
+        return Long.parseLong(jsonStory.get("id").toString());
     }
 
     private LabelDto getLabel() {

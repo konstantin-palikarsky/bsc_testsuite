@@ -3,6 +3,7 @@ package testsuite;
 import testsuite.apis.MonolithApi;
 import testsuite.apis.ThesisApi;
 import testsuite.dtos.TokenDto;
+import testsuite.workflows.AuthWorkflow;
 import testsuite.workflows.Workflow;
 import testsuite.workflows.WritingWorkflow;
 
@@ -11,9 +12,9 @@ public class Main {
         ThesisApi api = new MonolithApi();
 
         TokenDto auth = new TokenDto();
-        auth.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iu-_vSzvv71GTXnvv70iLCJleHAiOjE2NjIyMTExMTd9.-9GZbisEvkBCc1K3gawe_O6dTWK3evcexP6gwiRlcTI");
-
+        auth.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ilx0zac477-977-977-9IiwiZXhwIjoxNjYyMjE0ODQzfQ.5kMkGSI2rbajLDUqG1tHVH-H9MY8kUjaxb29b4boGro");
         Workflow workflow = new WritingWorkflow(api, auth);
+        //Workflow workflow= new AuthWorkflow(api);
 
         try {
             workflow.execute();
