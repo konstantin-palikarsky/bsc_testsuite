@@ -2,14 +2,14 @@ package testsuite;
 
 import testsuite.apis.MonolithApi;
 import testsuite.apis.ThesisApi;
-import testsuite.workflows.ReadingWorkflow;
+import testsuite.workflows.AuthWorkflow;
 import testsuite.workflows.Workflow;
 
 public class Main {
     public static void main(String[] args) {
         ThesisApi api = new MonolithApi();
 
-        Workflow workflow = new ReadingWorkflow(api);
+        Workflow workflow = new AuthWorkflow(api);
 
         try {
             workflow.execute();
