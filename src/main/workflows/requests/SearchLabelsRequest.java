@@ -9,18 +9,18 @@ import java.net.http.HttpResponse;
 
 import static main.workflows.requests.Commons.getStringHttpResponse;
 
-public class SearchStoriesRequest {
+public class SearchLabelsRequest {
     ThesisApi api;
 
-    public SearchStoriesRequest(ThesisApi api) {
+    public SearchLabelsRequest(ThesisApi api) {
         this.api = api;
     }
 
-    public HttpResponse<String> requestByTitleAndLabel(String title, String label) throws Exception {
+    public HttpResponse<String> requestByLabel(String label) throws Exception {
         HttpRequest request;
         try {
             request = HttpRequest.newBuilder()
-                    .uri(new URI(api.searchStoriesUrl(title, label)))
+                    .uri(new URI(api.searchLabelsUrl(label)))
                     .GET()
                     .header("authorization", "")
                     .build();

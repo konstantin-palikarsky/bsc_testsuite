@@ -1,5 +1,7 @@
 package main.workflows;
 
-public class AuthWorkflow {
-    //TODO define workflow
+public class AuthWorkflow implements Workflow {
+    public void execute() {
+
+    }
 }
