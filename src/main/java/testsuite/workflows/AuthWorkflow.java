@@ -10,7 +10,7 @@ import testsuite.workflows.requests.LoginRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-public class AuthWorkflow implements Workflow {
+public class AuthWorkflow {
     private final CreateUserRequest createUser;
     private final LoginRequest login;
 
@@ -19,7 +19,7 @@ public class AuthWorkflow implements Workflow {
         this.login = new LoginRequest(api);
     }
 
-    public void execute() throws Exception {
+    public TokenDto execute() throws Exception {
         var user = new UserDto(randomString(), randomString());
 
         var createUserResponse =
@@ -29,7 +29,7 @@ public class AuthWorkflow implements Workflow {
         var token = new TokenDto();
         token.setToken(jsonToken.get("token").toString());
 
-        System.out.println(token.getToken());
+        return token;
     }
 
     private String randomString() {

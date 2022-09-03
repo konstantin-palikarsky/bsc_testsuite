@@ -6,7 +6,7 @@ import testsuite.workflows.requests.GetStoryRequest;
 import testsuite.workflows.requests.SearchLabelsRequest;
 import testsuite.workflows.requests.SearchStoriesRequest;
 
-public class ReadingWorkflow implements Workflow {
+public class ReadingWorkflow {
 
     SearchLabelsRequest searchLabels;
     SearchStoriesRequest searchStories;
@@ -22,7 +22,5 @@ public class ReadingWorkflow implements Workflow {
         var labelsResponse = searchLabels.requestByLabel(null);
         var storiesResponse = searchStories.requestByTitleAndLabel(null, null);
         var storyResponse = getStory.requestById(1);
-
-        System.out.println(storyResponse + " " + labelsResponse.body() + " " + storiesResponse.body().substring(0,1024));
     }
 }

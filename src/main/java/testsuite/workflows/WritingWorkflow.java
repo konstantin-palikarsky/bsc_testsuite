@@ -14,7 +14,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-public class WritingWorkflow implements Workflow {
+public class WritingWorkflow {
     private final CreateStoryRequest createStory;
     private final CreateLabelRequest createLabel;
     private final UpdateStoryRequest updateStory;
@@ -27,7 +27,6 @@ public class WritingWorkflow implements Workflow {
         this.deleteStory = new DeleteStoryRequest(api, auth);
     }
 
-    @Override
     public void execute() throws Exception {
 
         var labelResponse = createLabel.create(getLabel());
