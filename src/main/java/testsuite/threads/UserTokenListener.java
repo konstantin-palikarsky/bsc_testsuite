@@ -25,6 +25,7 @@ public class UserTokenListener extends Thread {
         while (!userPool.isShutdown()) {
             var userToken = tokens.poll();
             if (userToken == null) {
+                //TokenQueue has been interrupted
                 return;
             }
 

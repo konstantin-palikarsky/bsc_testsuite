@@ -21,7 +21,7 @@ public class Testsuite implements Runnable {
 
     @Override
     public void run() {
-        TokenQueue tokens = new TokenQueue(20);
+        TokenQueue tokens = new TokenQueue(CAPACITY);
 
         tokenGenerator.scheduleAtFixedRate(new UserTokenGenerator(tokens), 0,
                 TOKEN_GENERATION_RATE_SECONDS, TimeUnit.SECONDS);
@@ -30,7 +30,14 @@ public class Testsuite implements Runnable {
 
         //Termination logic
         while (!userPool.isShutdown()) {
+
+
             if (tokens.atCapacity()) {
+                try {
+                    TimeUnit.SECONDS.sleep(30);
+                } catch (InterruptedException e) {
+                    shutdown();
+                }
                 shutdown();
             }
         }
