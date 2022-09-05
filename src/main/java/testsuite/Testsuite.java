@@ -22,20 +22,22 @@ public class Testsuite implements Runnable {
     private UserTokenListener tokenListener;
     private TokenQueue tokens;
 
-    //API to stress test
+    /*
+    * CONFIG VALUES
+    * */
+    //API to stress test Monolith, OpenWhisk or OpenFaaS
     private static final ApiType API = ApiType.MONOLITH;
-
     //Maximum connected users at a time
     private static final int CAPACITY = 20;
-
-    //How often a new user connects (until CAPACITY is reached)
+    //How often a new user connects (until capacity is reached)
     private static final int TOKEN_GENERATION_RATE_SECONDS = 1;
-
     //How often each user executes their workflows
     private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 10;
-
     //How long the stress test keeps running after all users are connected (in seconds)
     private static final int MAX_USER_EXECUTION_LENGTH_SECONDS = 20;
+    /*
+     * END CONFIG VALUES
+     * */
 
     @Override
     public void run() {
