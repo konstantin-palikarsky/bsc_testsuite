@@ -12,10 +12,12 @@ import java.util.concurrent.TimeUnit;
 public class UserTokenListener extends Thread {
     private final TokenQueue tokens;
     private final ScheduledExecutorService userPool;
+    private final int workflowRate;
 
-    public UserTokenListener(TokenQueue tokens, ScheduledExecutorService userPool) {
+    public UserTokenListener(TokenQueue tokens, ScheduledExecutorService userPool, int workflowRate) {
         this.tokens = tokens;
         this.userPool = userPool;
+        this.workflowRate = workflowRate;
     }
 
     public void run() {
@@ -32,7 +34,8 @@ public class UserTokenListener extends Thread {
                 //TODO exception handling
             }
 
-            userPool.scheduleAtFixedRate(new WorkflowExecutor(userToken, jwt, api), 0, 10, TimeUnit.SECONDS);
+            userPool.scheduleAtFixedRate(new WorkflowExecutor(userToken, jwt, api), 0,
+                    workflowRate, TimeUnit.SECONDS);
         }
 
     }

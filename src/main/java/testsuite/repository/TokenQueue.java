@@ -5,21 +5,27 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class TokenQueue {
-    private final BlockingQueue<UserConnectionToken> tokenQueue = new ArrayBlockingQueue<>(120);
+    private final BlockingQueue<UserConnectionToken> tokenQueue;
     private static final AtomicLong idCounter = new AtomicLong();
+    private final int capacity;
+
+    public TokenQueue(int capacity) {
+        this.capacity = capacity;
+        this.tokenQueue = new ArrayBlockingQueue<>(capacity + 20);
+    }
 
     public boolean atCapacity() {
         var head = tokenQueue.peek();
 
         if (head == null) {
-            return idCounter.get() > 15;
+            return idCounter.get() >= capacity;
         }
 
-        return head.getId() > 15;
+        return head.getId() >= capacity;
     }
 
     public void add() {
-        if (idCounter.get() >= 100) {
+        if (idCounter.get() >= capacity) {
 
             return;
         }
