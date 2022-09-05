@@ -18,17 +18,14 @@ public class WorkflowExecutor extends Thread {
 
     public void run() {
 
+        ReadingWorkflow read = new ReadingWorkflow(api);
+        WritingWorkflow write = new WritingWorkflow(api, jwt);
 
         try {
-
-            ReadingWorkflow read = new ReadingWorkflow(api);
-            WritingWorkflow write = new WritingWorkflow(api, jwt);
-
             read.execute();
             write.execute();
-
-
         } catch (Exception e) {
+            //TODO exception handling
             throw new RuntimeException(e);
         }
     }

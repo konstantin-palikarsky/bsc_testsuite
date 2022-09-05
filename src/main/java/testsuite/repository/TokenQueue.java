@@ -10,8 +10,9 @@ public class TokenQueue {
 
     public boolean atCapacity() {
         var head = tokenQueue.peek();
-        if (head==null){
-            return idCounter.get()>15;
+
+        if (head == null) {
+            return idCounter.get() > 15;
         }
 
         return head.getId() > 15;

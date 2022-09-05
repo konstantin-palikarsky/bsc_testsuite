@@ -11,28 +11,32 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Testsuite implements Runnable {
-    private final ScheduledExecutorService userPool = Executors.newScheduledThreadPool(50);
+    private final ScheduledExecutorService userPool = Executors.newScheduledThreadPool(100);
     private final ScheduledExecutorService tokenGenerator = Executors.newSingleThreadScheduledExecutor();
-
+    private UserTokenListener tokenListener;
 
     @Override
     public void run() {
         TokenQueue tokens = new TokenQueue();
 
-        tokenGenerator.scheduleAtFixedRate(new UserTokenGenerator(tokens), 0, 1, TimeUnit.SECONDS);
-        var tokenListener = new UserTokenListener(tokens, userPool);
+        tokenGenerator.scheduleAtFixedRate(new UserTokenGenerator(tokens), 0, 5, TimeUnit.SECONDS);
+        tokenListener = new UserTokenListener(tokens, userPool);
         tokenListener.start();
 
-        var startTime = LocalDateTime.now();
-        while(!userPool.isShutdown()){
-            if (tokens.atCapacity()){
-                System.err.println("Shutting down at: "+LocalDateTime.now());
-                userPool.shutdownNow();
-                tokenGenerator.shutdownNow();
-                tokenListener.interrupt();
+        //Termination logic
+        while (!userPool.isShutdown()) {
+            if (tokens.atCapacity()) {
+                shutdown();
             }
         }
 
+    }
+
+    public void shutdown() {
+        System.err.println("Shutting down at: " + LocalDateTime.now());
+        userPool.shutdownNow();
+        tokenGenerator.shutdownNow();
+        tokenListener.interrupt();
     }
 
     public static void main(String[] args) {

@@ -29,6 +29,7 @@ public class UserTokenListener extends Thread {
             try {
                 jwt = authenticate.execute();
             } catch (Exception ignored) {
+                //TODO exception handling
             }
 
             userPool.scheduleAtFixedRate(new WorkflowExecutor(userToken, jwt, api), 0, 10, TimeUnit.SECONDS);
