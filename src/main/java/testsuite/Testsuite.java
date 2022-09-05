@@ -21,6 +21,7 @@ public class Testsuite implements Runnable {
     private static final int CAPACITY = 20;
     private static final int TOKEN_GENERATION_RATE_SECONDS = 1;
     private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 10;
+    private static final int MAX_USER_EXECUTION_LENGTH_SECONDS = 60;
 
     @Override
     public void run() {
@@ -33,11 +34,9 @@ public class Testsuite implements Runnable {
 
         //Termination logic
         while (!userPool.isShutdown()) {
-
-
             if (tokens.atCapacity()) {
                 try {
-                    TimeUnit.SECONDS.sleep(30);
+                    TimeUnit.SECONDS.sleep(MAX_USER_EXECUTION_LENGTH_SECONDS);
                 } catch (InterruptedException e) {
                     shutdown();
                 }
@@ -54,8 +53,8 @@ public class Testsuite implements Runnable {
         } catch (IOException e) {
             System.err.println("couldnt get request stats");
         }
-        userPool.shutdownNow();
-        tokenGenerator.shutdownNow();
+        userPool.shutdown();
+        tokenGenerator.shutdown();
         tokenListener.interrupt();
     }
 
