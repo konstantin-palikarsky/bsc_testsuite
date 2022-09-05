@@ -12,46 +12,52 @@ public record WhiskApi(RequestStatisticsRepository stats) implements ThesisApi {
 
     @Override
     public String searchStoriesUrl(String title, String label) {
-        return null;
+        if (title == null) {
+            title = "";
+        }
+        if (label == null) {
+            label = "";
+        }
+
+        return "https://localhost:31001/api/v1/web/guest/bsc/search-stories?title=" + title + "&label=" + label;
     }
 
     @Override
-    public String getStoryUrl(long id) {
-        return null;
-    }
-
-    @Override
-    public String pdfGetStoryUrl(long id) {
-        return null;
+    public String exportStoryUrl(long id) {
+        return "https://localhost:31001/api/v1/web/guest/bsc/pdf-get-story/"+id;
     }
 
     @Override
     public String updateStoryUrl(long id) {
-        return null;
+        return "https://localhost:31001/api/v1/web/guest/bsc/update-story/"+id;
     }
 
     @Override
     public String deleteStoryUrl(long id) {
-        return null;
+        return "https://localhost:31001/api/v1/web/guest/bsc/delete-story/"+id;
     }
 
     @Override
     public String createStoryUrl() {
-        return null;
+        return "https://localhost:31001/api/v1/web/guest/bsc/create-story";
     }
 
     @Override
     public String searchLabelsUrl(String label) {
-        return null;
+        if (label == null) {
+            label = "";
+        }
+
+        return "https://localhost:31001/api/v1/web/guest/bsc/search-labels?label=" + label;
     }
 
     @Override
     public String loginUrl() {
-        return null;
+        return "https://localhost:31001/api/v1/web/guest/bsc/login";
     }
 
     @Override
     public String createUserUrl() {
-        return null;
+        return "https://localhost:31001/api/v1/web/guest/bsc/create-user";
     }
 }

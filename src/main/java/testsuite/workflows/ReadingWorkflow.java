@@ -2,7 +2,7 @@ package testsuite.workflows;
 
 
 import testsuite.apis.ThesisApi;
-import testsuite.workflows.requests.GetStoryRequest;
+import testsuite.workflows.requests.ExportStoryRequest;
 import testsuite.workflows.requests.SearchLabelsRequest;
 import testsuite.workflows.requests.SearchStoriesRequest;
 
@@ -10,12 +10,12 @@ public class ReadingWorkflow {
 
     SearchLabelsRequest searchLabels;
     SearchStoriesRequest searchStories;
-    GetStoryRequest getStory;
+    ExportStoryRequest getStory;
 
     public ReadingWorkflow(ThesisApi api) {
         this.searchLabels = new SearchLabelsRequest(api);
         this.searchStories = new SearchStoriesRequest(api);
-        this.getStory = new GetStoryRequest(api);
+        this.getStory = new ExportStoryRequest(api);
     }
 
     public void execute() throws Exception {

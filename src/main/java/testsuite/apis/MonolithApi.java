@@ -22,12 +22,7 @@ public record MonolithApi(RequestStatisticsRepository stats) implements ThesisAp
     }
 
     @Override
-    public String getStoryUrl(long id) {
-        return "http://localhost:8080/stories/" + id;
-    }
-
-    @Override
-    public String pdfGetStoryUrl(long id) {
+    public String exportStoryUrl(long id) {
         return "http://localhost:8080/stories/pdf/" + id;
     }
 

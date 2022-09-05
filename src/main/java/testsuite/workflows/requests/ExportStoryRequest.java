@@ -13,10 +13,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
-public class GetStoryRequest {
+public class ExportStoryRequest {
     ThesisApi api;
 
-    public GetStoryRequest(ThesisApi api) {
+    public ExportStoryRequest(ThesisApi api) {
         this.api = api;
     }
 
@@ -26,7 +26,7 @@ public class GetStoryRequest {
         var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
-                    .uri(new URI(api.pdfGetStoryUrl(id)))
+                    .uri(new URI(api.exportStoryUrl(id)))
                     .GET()
                     .header("authorization", "")
                     .build();

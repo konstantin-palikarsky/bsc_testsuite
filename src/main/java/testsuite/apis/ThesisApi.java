@@ -11,9 +11,7 @@ public interface ThesisApi {
 
     public String searchStoriesUrl(String title, String label);
 
-    public String getStoryUrl(long id);
-
-    public String pdfGetStoryUrl(long id);
+    public String exportStoryUrl(long id);
 
     public String updateStoryUrl(long id);
 
