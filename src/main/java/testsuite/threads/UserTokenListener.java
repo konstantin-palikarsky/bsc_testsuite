@@ -14,12 +14,12 @@ public class UserTokenListener extends Thread {
     private final TokenQueue tokens;
     private final ScheduledExecutorService userPool;
     private final int workflowRate;
-    private final RequestStatisticsRepository stats;
+    ThesisApi api;
 
     public UserTokenListener(TokenQueue tokens, ScheduledExecutorService userPool,
-                             int workflowRate, RequestStatisticsRepository stats) {
+                             int workflowRate, ThesisApi api) {
         this.tokens = tokens;
-        this.stats = stats;
+        this.api = api;
         this.userPool = userPool;
         this.workflowRate = workflowRate;
     }
@@ -33,7 +33,6 @@ public class UserTokenListener extends Thread {
                 return;
             }
 
-            ThesisApi api = new MonolithApi(stats);
 
             AuthWorkflow authenticate = new AuthWorkflow(api);
             TokenDto jwt = null;

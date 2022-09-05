@@ -33,7 +33,7 @@ public class UpdateStoryRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.updateStoryUrl(id)))
                     .PUT(HttpRequest.BodyPublishers.ofString(body))
-                    .header("authorization", authToken.getToken())
+                    .header("authorization", authToken.token())
                     .build();
 
         } catch (URISyntaxException e) {

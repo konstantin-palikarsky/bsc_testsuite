@@ -1,13 +1,13 @@
 package testsuite.apis;
 
+import testsuite.repositories.RequestStatisticsRepository;
 import testsuite.repositories.entities.RequestStatistics;
 
-public class WhiskApi implements ThesisApi{
-    //TODO ADD URLS
+public record WhiskApi(RequestStatisticsRepository stats) implements ThesisApi {
 
     @Override
     public void saveStats(RequestStatistics stat) {
-
+        stats.save(stat);
     }
 
     @Override

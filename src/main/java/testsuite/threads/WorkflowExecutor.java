@@ -13,7 +13,7 @@ public class WorkflowExecutor extends Thread {
     public WorkflowExecutor(UserConnectionToken userConnectionToken, TokenDto jwt, ThesisApi api) {
         this.jwt = jwt;
         this.api = api;
-        System.out.println("Connected user: " + (userConnectionToken.getId() + 1) + "/100");
+        System.out.println("Connected user number #" + (userConnectionToken.id() + 1));
     }
 
     public void run() {

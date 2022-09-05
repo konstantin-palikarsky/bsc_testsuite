@@ -17,6 +17,7 @@ public class RequestStatisticsRepository {
         FileWriter writer = new FileWriter("./stats.csv");
 
         var arrayListStats = requestStatisticsList.stream().toList();
+        writer.write("Timestamp HH:MM:SS,Request Type,Execution time (in ms)\n");
 
         for (RequestStatistics stat : arrayListStats) {
             writer.write(stat.toString());

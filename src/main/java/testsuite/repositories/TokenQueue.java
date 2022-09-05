@@ -23,7 +23,7 @@ public class TokenQueue {
             return idCounter.get() >= capacity;
         }
 
-        return head.getId() >= capacity;
+        return head.id() >= capacity;
     }
 
     public void add() {

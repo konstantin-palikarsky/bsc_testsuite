@@ -3,13 +3,7 @@ package testsuite.apis;
 import testsuite.repositories.RequestStatisticsRepository;
 import testsuite.repositories.entities.RequestStatistics;
 
-public class MonolithApi implements ThesisApi {
-
-    private final RequestStatisticsRepository stats;
-
-    public MonolithApi(RequestStatisticsRepository stats) {
-        this.stats = stats;
-    }
+public record MonolithApi(RequestStatisticsRepository stats) implements ThesisApi {
 
     public void saveStats(RequestStatistics stat) {
         stats.save(stat);

@@ -15,25 +15,22 @@ import java.util.Random;
 
 public class WritingWorkflow {
     private final CreateStoryRequest createStory;
-    //private final CreateLabelRequest createLabel;
     private final UpdateStoryRequest updateStory;
     private final DeleteStoryRequest deleteStory;
 
     public WritingWorkflow(ThesisApi api, TokenDto auth) {
         this.createStory = new CreateStoryRequest(api, auth);
         this.updateStory = new UpdateStoryRequest(api, auth);
-        //this.createLabel = new CreateLabelRequest(api, auth);
         this.deleteStory = new DeleteStoryRequest(api, auth);
     }
 
     public void execute() throws Exception {
 
         var storyResponse = createStory.create(getStory());
-
         long createdStoryId = getStoryIdFromResponse(storyResponse);
 
-        var updateResponse = updateStory.updateById(getStoryForUpdate(), createdStoryId);
-        var deleteResponse = deleteStory.deleteById(createdStoryId);
+        updateStory.updateById(getStoryForUpdate(), createdStoryId);
+        deleteStory.deleteById(createdStoryId);
     }
 
     private long getStoryIdFromResponse(HttpResponse<String> storyResponse) {
@@ -46,46 +43,36 @@ public class WritingWorkflow {
     }
 
     private LabelDto getLabel() {
-
-        var label = new LabelDto();
-        label.setId(1L);
-        label.setLabel(randomString());
-        return label;
+        return new LabelDto(randomString(), 1L);
     }
-    private LabelDto getLabel2() {
 
-        var label = new LabelDto();
-        label.setId(2L);
-        label.setLabel(randomString());
-        return label;
+    private LabelDto getLabel2() {
+        return new LabelDto(randomString(), 2L);
     }
 
     private StoryDto getStoryForUpdate() {
-        var story = new StoryDto();
-        story.setContents("Successfully updated");
-        story.setAuthorName(randomString());
-        story.setTitle(randomString());
-
         var labels = new LabelDto[2];
         labels[0] = getLabel();
         labels[1] = getLabel2();
 
-        story.setLabels(labels);
-        return story;
+        return new StoryDto("Successfully updated title!",
+                "Successfully updated author name!",
+                "Successfully updated contents!",
+                labels);
     }
 
     private StoryDto getStory() {
-        var story = new StoryDto();
-        story.setContents(randomString());
-        story.setAuthorName(randomString());
-        story.setTitle(randomString());
-
-        story.setLabels(null);
-        return story;
+        return new StoryDto(randomString(), randomString(), randomString(), null);
     }
 
     private String randomString() {
-        byte[] array = new byte[7]; // length is bounded by 7
+        byte[] array = new byte[7];
+        new Random().nextBytes(array);
+        return new String(array, StandardCharsets.UTF_8);
+    }
+
+    private String randomLargeContentString() {
+        byte[] array = new byte[4096];
         new Random().nextBytes(array);
         return new String(array, StandardCharsets.UTF_8);
     }

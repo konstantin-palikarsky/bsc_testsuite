@@ -33,7 +33,7 @@ public class CreateStoryRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.createStoryUrl()))
                     .POST(HttpRequest.BodyPublishers.ofString(body))
-                    .header("authorization", authToken.getToken())
+                    .header("authorization", authToken.token())
                     .build();
 
         } catch (URISyntaxException e) {

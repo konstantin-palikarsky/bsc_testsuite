@@ -5,10 +5,8 @@ import testsuite.dtos.TokenDto;
 import testsuite.repositories.entities.RequestStatistics;
 import testsuite.repositories.entities.RequestType;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
@@ -32,7 +30,7 @@ public class DeleteStoryRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.deleteStoryUrl(id)))
                     .DELETE()
-                    .header("authorization", authToken.getToken())
+                    .header("authorization", authToken.token())
                     .build();
 
         } catch (URISyntaxException e) {

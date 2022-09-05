@@ -22,14 +22,11 @@ public class AuthWorkflow {
     public TokenDto execute() throws Exception {
         var user = new UserDto(randomString(), randomString());
 
-        var createUserResponse =
-                createUser.create(user);
+        createUser.create(user);
         var loginResponse = login.login(user);
         var jsonToken = new JSONObject(loginResponse.body());
-        var token = new TokenDto();
-        token.setToken(jsonToken.get("token").toString());
 
-        return token;
+        return new TokenDto(jsonToken.get("token").toString());
     }
 
     private String randomString() {

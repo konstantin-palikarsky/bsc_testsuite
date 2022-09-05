@@ -1,14 +1,15 @@
 package testsuite.apis;
 
+import testsuite.repositories.RequestStatisticsRepository;
 import testsuite.repositories.entities.RequestStatistics;
 
-public class FaasApi implements ThesisApi {
+public record FaasApi(RequestStatisticsRepository stats) implements ThesisApi {
 
     //TODO ADD URLS
 
     @Override
     public void saveStats(RequestStatistics stat) {
-
+        stats.save(stat);
     }
 
     @Override
