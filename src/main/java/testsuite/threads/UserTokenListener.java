@@ -24,6 +24,10 @@ public class UserTokenListener extends Thread {
 
         while (!userPool.isShutdown()) {
             var userToken = tokens.poll();
+            if (userToken == null) {
+                return;
+            }
+
             ThesisApi api = new MonolithApi();
 
             AuthWorkflow authenticate = new AuthWorkflow(api);

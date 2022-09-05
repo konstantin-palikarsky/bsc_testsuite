@@ -21,7 +21,7 @@ public class Testsuite implements Runnable {
 
     @Override
     public void run() {
-        TokenQueue tokens = new TokenQueue(CAPACITY);
+        TokenQueue tokens = new TokenQueue(20);
 
         tokenGenerator.scheduleAtFixedRate(new UserTokenGenerator(tokens), 0,
                 TOKEN_GENERATION_RATE_SECONDS, TimeUnit.SECONDS);
