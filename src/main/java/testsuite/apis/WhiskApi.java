@@ -1,7 +1,14 @@
 package testsuite.apis;
 
+import testsuite.repositories.entities.RequestStatistics;
+
 public class WhiskApi implements ThesisApi{
     //TODO ADD URLS
+
+    @Override
+    public void saveStats(RequestStatistics stat) {
+
+    }
 
     @Override
     public String searchStoriesUrl(String title, String label) {
@@ -35,11 +42,6 @@ public class WhiskApi implements ThesisApi{
 
     @Override
     public String searchLabelsUrl(String label) {
-        return null;
-    }
-
-    @Override
-    public String createLabelUrl() {
         return null;
     }
 

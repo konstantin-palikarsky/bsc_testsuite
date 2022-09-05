@@ -1,6 +1,19 @@
 package testsuite.apis;
 
+import testsuite.repositories.RequestStatisticsRepository;
+import testsuite.repositories.entities.RequestStatistics;
+
 public class MonolithApi implements ThesisApi {
+
+    private final RequestStatisticsRepository stats;
+
+    public MonolithApi(RequestStatisticsRepository stats) {
+        this.stats = stats;
+    }
+
+    public void saveStats(RequestStatistics stat) {
+        stats.save(stat);
+    }
 
     @Override
     public String searchStoriesUrl(String title, String label) {
@@ -49,12 +62,6 @@ public class MonolithApi implements ThesisApi {
 
         return "http://localhost:8080/labels?label=" + label;
     }
-
-    @Override
-    public String createLabelUrl() {
-        return "http://localhost:8080/labels";
-    }
-
 
     @Override
     public String loginUrl() {

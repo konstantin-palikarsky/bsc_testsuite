@@ -1,4 +1,4 @@
-package testsuite.repository;
+package testsuite.repositories.entities;
 
 public class UserConnectionToken {
     private final long id;

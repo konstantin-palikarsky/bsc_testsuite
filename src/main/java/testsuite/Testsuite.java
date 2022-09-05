@@ -1,10 +1,12 @@
 package testsuite;
 
 
-import testsuite.repository.TokenQueue;
+import testsuite.repositories.RequestStatisticsRepository;
+import testsuite.repositories.TokenQueue;
 import testsuite.threads.UserTokenGenerator;
 import testsuite.threads.UserTokenListener;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,8 +16,9 @@ public class Testsuite implements Runnable {
     private final ScheduledExecutorService userPool = Executors.newScheduledThreadPool(CAPACITY);
     private final ScheduledExecutorService tokenGenerator = Executors.newSingleThreadScheduledExecutor();
     private UserTokenListener tokenListener;
+    private final RequestStatisticsRepository stats = new RequestStatisticsRepository();
 
-    private static final int CAPACITY = 50;
+    private static final int CAPACITY = 20;
     private static final int TOKEN_GENERATION_RATE_SECONDS = 1;
     private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 10;
 
@@ -25,7 +28,7 @@ public class Testsuite implements Runnable {
 
         tokenGenerator.scheduleAtFixedRate(new UserTokenGenerator(tokens), 0,
                 TOKEN_GENERATION_RATE_SECONDS, TimeUnit.SECONDS);
-        tokenListener = new UserTokenListener(tokens, userPool, WORKFLOW_EXECUTION_RATE_SECONDS);
+        tokenListener = new UserTokenListener(tokens, userPool, WORKFLOW_EXECUTION_RATE_SECONDS, stats);
         tokenListener.start();
 
         //Termination logic
@@ -46,6 +49,11 @@ public class Testsuite implements Runnable {
 
     public void shutdown() {
         System.err.println("Shutting down at: " + LocalDateTime.now());
+        try {
+            stats.getRequestStatisticsList();
+        } catch (IOException e) {
+            System.err.println("couldnt get request stats");
+        }
         userPool.shutdownNow();
         tokenGenerator.shutdownNow();
         tokenListener.interrupt();

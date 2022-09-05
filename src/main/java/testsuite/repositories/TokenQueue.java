@@ -1,4 +1,6 @@
-package testsuite.repository;
+package testsuite.repositories;
+
+import testsuite.repositories.entities.UserConnectionToken;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;

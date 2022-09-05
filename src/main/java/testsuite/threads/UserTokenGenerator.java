@@ -1,6 +1,6 @@
 package testsuite.threads;
 
-import testsuite.repository.TokenQueue;
+import testsuite.repositories.TokenQueue;
 
 public class UserTokenGenerator extends Thread {
     private final TokenQueue tokens;

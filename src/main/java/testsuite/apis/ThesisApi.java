@@ -1,6 +1,10 @@
 package testsuite.apis;
 
+import testsuite.repositories.entities.RequestStatistics;
+
 public interface ThesisApi {
+    public void saveStats(RequestStatistics stat);
+
     /**
      * Stories API
      */
@@ -23,12 +27,10 @@ public interface ThesisApi {
 
     public String searchLabelsUrl(String label);
 
-    public String createLabelUrl();
-
     /**
      * Users API
      */
-    
+
     public String loginUrl();
 
     public String createUserUrl();

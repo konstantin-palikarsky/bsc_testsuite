@@ -5,7 +5,6 @@ import testsuite.apis.ThesisApi;
 import testsuite.dtos.LabelDto;
 import testsuite.dtos.StoryDto;
 import testsuite.dtos.TokenDto;
-import testsuite.workflows.requests.CreateLabelRequest;
 import testsuite.workflows.requests.CreateStoryRequest;
 import testsuite.workflows.requests.DeleteStoryRequest;
 import testsuite.workflows.requests.UpdateStoryRequest;

@@ -2,7 +2,7 @@ package testsuite.threads;
 
 import testsuite.apis.ThesisApi;
 import testsuite.dtos.TokenDto;
-import testsuite.repository.UserConnectionToken;
+import testsuite.repositories.entities.UserConnectionToken;
 import testsuite.workflows.ReadingWorkflow;
 import testsuite.workflows.WritingWorkflow;
 
