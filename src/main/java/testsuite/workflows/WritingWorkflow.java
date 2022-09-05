@@ -27,17 +27,19 @@ public class WritingWorkflow {
     public void execute() throws Exception {
 
         var storyResponse = createStory.create(getStory());
+
         long createdStoryId = getStoryIdFromResponse(storyResponse);
 
         updateStory.updateById(getStoryForUpdate(), createdStoryId);
         deleteStory.deleteById(createdStoryId);
     }
 
+    //TODO standardize json return values
     private long getStoryIdFromResponse(HttpResponse<String> storyResponse) {
         var responseString = storyResponse.body();
-        var jsonResponseData = new JSONObject(responseString).get("data");
 
-        var jsonStory = new JSONObject(jsonResponseData.toString());
+
+        var jsonStory = new JSONObject(responseString);
 
         return Long.parseLong(jsonStory.get("id").toString());
     }

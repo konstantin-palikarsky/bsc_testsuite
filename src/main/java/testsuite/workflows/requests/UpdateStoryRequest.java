@@ -34,6 +34,7 @@ public class UpdateStoryRequest {
                     .uri(new URI(api.updateStoryUrl(id)))
                     .PUT(HttpRequest.BodyPublishers.ofString(body))
                     .header("authorization", authToken.token())
+                    .header("content-type","application/json")
                     .build();
 
         } catch (URISyntaxException e) {

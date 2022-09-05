@@ -30,15 +30,17 @@ public class CreateStoryRequest {
 
         var start = System.currentTimeMillis();
         try {
+
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.createStoryUrl()))
+                    .header("content-type","application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .header("authorization", authToken.token())
                     .build();
 
-        } catch (URISyntaxException e) {
-            System.err.println("Error with url syntax");
-            throw new URISyntaxException(e.getInput(), e.getReason());
+        } catch (Exception e) {
+
+             throw new Exception(e.getMessage());
         }
 
         var response = getStringHttpResponse(request);
@@ -51,6 +53,7 @@ public class CreateStoryRequest {
     }
 
     private String storyToString(StoryDto label) {
+
         return new JSONObject(label).toString();
     }
 

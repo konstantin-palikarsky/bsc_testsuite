@@ -8,7 +8,9 @@ import testsuite.workflows.requests.CreateUserRequest;
 import testsuite.workflows.requests.LoginRequest;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class AuthWorkflow {
     private final CreateUserRequest createUser;
@@ -30,8 +32,12 @@ public class AuthWorkflow {
     }
 
     private String randomString() {
-        byte[] array = new byte[7]; // length is bounded by 7
-        new Random().nextBytes(array);
-        return new String(array, StandardCharsets.UTF_8);
+        StringBuilder rand= new StringBuilder("");
+
+        for (int i = 0; i < 10; i++) {
+            rand.append((char) (new Random().nextInt(26) + 'a'));
+
+        }
+        return rand.toString();
     }
 }

@@ -29,6 +29,7 @@ public class SearchLabelsRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.searchLabelsUrl(label)))
                     .GET()
+                    .header("content-type","application/json")
                     .header("authorization", "")
                     .build();
 

@@ -29,6 +29,7 @@ public class LoginRequest {
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.loginUrl()))
+                    .header("content-type","application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .header("authorization", "")
                     .build();
@@ -39,12 +40,12 @@ public class LoginRequest {
         }
 
         var response = getStringHttpResponse(request);
-
         var end = Long.toString(System.currentTimeMillis() - start);
 
         api.saveStats(new RequestStatistics(LocalDateTime.now(), RequestType.LOGIN, end));
 
-        return response;    }
+        return response;
+    }
 
     private String userToString(UserDto user) {
         return new JSONObject(user).toString();

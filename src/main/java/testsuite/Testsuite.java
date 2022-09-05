@@ -26,7 +26,7 @@ public class Testsuite implements Runnable {
     * CONFIG VALUES
     * */
     //API to stress test Monolith, OpenWhisk or OpenFaaS
-    private static final ApiType API = ApiType.MONOLITH;
+    private static final ApiType API = ApiType.OPENWHISK;
     //Maximum connected users at a time
     private static final int CAPACITY = 20;
     //How often a new user connects (until capacity is reached)
@@ -65,6 +65,9 @@ public class Testsuite implements Runnable {
     }
 
     public ThesisApi init() {
+        var properties = System.getProperties();
+        properties.setProperty("jdk.internal.httpclient.disableHostnameVerification", Boolean.TRUE.toString());
+
         tokens = new TokenQueue(CAPACITY);
 
         //Setting first timestamp

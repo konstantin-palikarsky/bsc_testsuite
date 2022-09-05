@@ -30,6 +30,7 @@ public class DeleteStoryRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.deleteStoryUrl(id)))
                     .DELETE()
+                    .header("content-type","application/json")
                     .header("authorization", authToken.token())
                     .build();
 

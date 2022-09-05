@@ -27,6 +27,7 @@ public class SearchStoriesRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.searchStoriesUrl(title, label)))
                     .GET()
+                    .header("content-type","application/json")
                     .header("authorization", "")
                     .build();
 

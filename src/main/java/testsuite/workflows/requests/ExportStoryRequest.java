@@ -13,6 +13,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 
+import static testsuite.workflows.requests.Commons.insecureContext;
+
 public class ExportStoryRequest {
     ThesisApi api;
 
@@ -36,7 +38,8 @@ public class ExportStoryRequest {
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
 
-        var client = HttpClient.newHttpClient();
+        var client = HttpClient.newBuilder().sslContext(insecureContext()).build();
+
         HttpResponse<byte[]> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());

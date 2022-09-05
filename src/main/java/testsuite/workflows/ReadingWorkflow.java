@@ -35,11 +35,11 @@ public class ReadingWorkflow {
         getStory.requestById(getIdFromResponse(storiesResponse));
     }
 
+    //TODO standardize json response across apis
     private String getLabelFromResponse(HttpResponse<String> labelsResponse) {
-        var responseString = labelsResponse.body();
-        var jsonResponseData = new JSONObject(responseString).get("data");
 
-        var jsonLabelsArray = new JSONArray(jsonResponseData.toString());
+        var responseString = labelsResponse.body();
+        var jsonLabelsArray = new JSONArray(responseString);
 
         var temp = new JSONObject(jsonLabelsArray.get(3).toString()).get("label").toString();
         return URLEncoder.encode(temp, StandardCharsets.US_ASCII);
@@ -48,9 +48,8 @@ public class ReadingWorkflow {
 
     private long getIdFromResponse(HttpResponse<String> storyResponse) {
         var responseString = storyResponse.body();
-        var jsonResponseData = new JSONObject(responseString).get("data");
+        var jsonLabelsArray = new JSONArray(responseString);
 
-        var jsonLabelsArray = new JSONArray(jsonResponseData.toString());
 
         return Long.parseLong(new JSONObject(jsonLabelsArray.get(2).toString()).get("id").toString());
     }

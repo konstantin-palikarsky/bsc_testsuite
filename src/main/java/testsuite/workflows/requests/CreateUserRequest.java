@@ -30,12 +30,12 @@ public class CreateUserRequest {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.createUserUrl()))
                     .POST(HttpRequest.BodyPublishers.ofString(body))
-                    .header("authorization", "")
+                    .header("content-type","application/json")
                     .build();
 
-        } catch (URISyntaxException e) {
-            System.err.println("Error with url syntax");
-            throw new URISyntaxException(e.getInput(), e.getReason());
+        } catch (Exception e) {
+            System.err.println("Error with url syntax:" + e.getMessage());
+            throw new Exception(e.getMessage());
         }
         var response = getStringHttpResponse(request);
 
