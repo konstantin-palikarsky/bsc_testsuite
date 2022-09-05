@@ -16,20 +16,19 @@ import java.util.Random;
 
 public class WritingWorkflow {
     private final CreateStoryRequest createStory;
-    private final CreateLabelRequest createLabel;
+    //private final CreateLabelRequest createLabel;
     private final UpdateStoryRequest updateStory;
     private final DeleteStoryRequest deleteStory;
 
     public WritingWorkflow(ThesisApi api, TokenDto auth) {
         this.createStory = new CreateStoryRequest(api, auth);
         this.updateStory = new UpdateStoryRequest(api, auth);
-        this.createLabel = new CreateLabelRequest(api, auth);
+        //this.createLabel = new CreateLabelRequest(api, auth);
         this.deleteStory = new DeleteStoryRequest(api, auth);
     }
 
     public void execute() throws Exception {
 
-        var labelResponse = createLabel.create(getLabel());
         var storyResponse = createStory.create(getStory());
 
         long createdStoryId = getStoryIdFromResponse(storyResponse);
@@ -48,7 +47,16 @@ public class WritingWorkflow {
     }
 
     private LabelDto getLabel() {
+
         var label = new LabelDto();
+        label.setId(1L);
+        label.setLabel(randomString());
+        return label;
+    }
+    private LabelDto getLabel2() {
+
+        var label = new LabelDto();
+        label.setId(2L);
         label.setLabel(randomString());
         return label;
     }
@@ -61,7 +69,7 @@ public class WritingWorkflow {
 
         var labels = new LabelDto[2];
         labels[0] = getLabel();
-        labels[1] = getLabel();
+        labels[1] = getLabel2();
 
         story.setLabels(labels);
         return story;
