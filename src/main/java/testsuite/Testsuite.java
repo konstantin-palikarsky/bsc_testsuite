@@ -23,7 +23,7 @@ public class Testsuite implements Runnable {
     private TokenQueue tokens;
 
     //API to stress test
-    private static final ApiType API_TYPE = ApiType.MONOLITH;
+    private static final ApiType API = ApiType.MONOLITH;
 
     //Maximum connected users at a time
     private static final int CAPACITY = 20;
@@ -68,7 +68,7 @@ public class Testsuite implements Runnable {
         //Setting first timestamp
         stats.save(new RequestStatistics(LocalDateTime.now(), null, "TEST START TIMESTAMP"));
 
-        switch (API_TYPE) {
+        switch (API) {
             case MONOLITH -> {
                 return new MonolithApi(stats);
             }
