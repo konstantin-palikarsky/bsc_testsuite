@@ -25,7 +25,6 @@ public class LoginRequest {
         HttpRequest request;
         String body = userToString(user);
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.loginUrl()))
@@ -38,6 +37,7 @@ public class LoginRequest {
             System.err.println("Error with url syntax");
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
+        var start = System.currentTimeMillis();
 
         var response = getStringHttpResponse(request);
         var end = Long.toString(System.currentTimeMillis() - start);

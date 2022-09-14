@@ -25,7 +25,6 @@ public class CreateUserRequest {
         HttpRequest request;
         String body = userToString(user);
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.createUserUrl()))
@@ -37,6 +36,8 @@ public class CreateUserRequest {
             System.err.println("Error with url syntax:" + e.getMessage());
             throw new Exception(e.getMessage());
         }
+        var start = System.currentTimeMillis();
+
         var response = getStringHttpResponse(request);
 
         var end = Long.toString(System.currentTimeMillis() - start);

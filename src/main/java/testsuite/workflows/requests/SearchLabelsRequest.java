@@ -24,7 +24,6 @@ public class SearchLabelsRequest {
     public HttpResponse<String> requestByLabel(String label) throws Exception {
         HttpRequest request;
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.searchLabelsUrl(label)))
@@ -37,6 +36,7 @@ public class SearchLabelsRequest {
             System.err.println("Error with url syntax");
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
+        var start = System.currentTimeMillis();
 
         var response = getStringHttpResponse(request);
 

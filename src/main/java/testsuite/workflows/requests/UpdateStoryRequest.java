@@ -28,7 +28,6 @@ public class UpdateStoryRequest {
         HttpRequest request;
         String body = storyToString(story);
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.updateStoryUrl(id)))
@@ -41,6 +40,9 @@ public class UpdateStoryRequest {
             System.err.println("Error with url syntax");
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
+
+        var start = System.currentTimeMillis();
+
         var response = getStringHttpResponse(request);
 
         var end = Long.toString(System.currentTimeMillis() - start);

@@ -28,7 +28,6 @@ public class CreateStoryRequest {
         HttpRequest request;
         String body = storyToString(story);
 
-        var start = System.currentTimeMillis();
         try {
 
             request = HttpRequest.newBuilder()
@@ -42,6 +41,7 @@ public class CreateStoryRequest {
 
              throw new Exception(e.getMessage());
         }
+        var start = System.currentTimeMillis();
 
         var response = getStringHttpResponse(request);
 

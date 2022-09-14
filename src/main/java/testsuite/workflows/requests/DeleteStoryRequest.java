@@ -25,7 +25,6 @@ public class DeleteStoryRequest {
     public HttpResponse<String> deleteById(long id) throws Exception {
         HttpRequest request;
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.deleteStoryUrl(id)))
@@ -38,6 +37,7 @@ public class DeleteStoryRequest {
             System.err.println("Error with url syntax");
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
+        var start = System.currentTimeMillis();
 
         var response = getStringHttpResponse(request);
 

@@ -25,7 +25,6 @@ public class ExportStoryRequest {
     public HttpResponse<byte[]> requestById(long id) throws Exception {
         HttpRequest request;
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.exportStoryUrl(id)))
@@ -41,6 +40,8 @@ public class ExportStoryRequest {
         var client = HttpClient.newBuilder().sslContext(insecureContext()).build();
 
         HttpResponse<byte[]> response;
+        var start = System.currentTimeMillis();
+
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
         } catch (IOException | InterruptedException e) {

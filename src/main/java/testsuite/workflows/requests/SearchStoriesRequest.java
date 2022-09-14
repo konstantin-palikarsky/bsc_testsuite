@@ -22,7 +22,6 @@ public class SearchStoriesRequest {
     public HttpResponse<String> requestByTitleAndLabel(String title, String label) throws Exception {
         HttpRequest request;
 
-        var start = System.currentTimeMillis();
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI(api.searchStoriesUrl(title, label)))
@@ -36,6 +35,7 @@ public class SearchStoriesRequest {
             throw new URISyntaxException(e.getInput(), e.getReason());
         }
 
+        var start = System.currentTimeMillis();
 
         var response = getStringHttpResponse(request);
 
