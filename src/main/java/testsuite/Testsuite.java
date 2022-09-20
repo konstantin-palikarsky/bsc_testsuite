@@ -23,18 +23,20 @@ public class Testsuite implements Runnable {
     private TokenQueue tokens;
 
     /*
-    * CONFIG VALUES
-    * */
+     * CONFIG VALUES
+     * */
     //API to stress test Monolith, OpenWhisk or OpenFaaS
     private static final ApiType API = ApiType.OPENFAAS;
     //Maximum connected users at a time
-    private static final int CAPACITY = 100;
+    private static final int CAPACITY = 50;
     //How often a new user connects (until capacity is reached)
-    private static final int TOKEN_GENERATION_RATE_SECONDS = 1;
+    private static final int TOKEN_GENERATION_RATE_SECONDS = 5;
     //How often each user executes their workflows
-    private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 6;
+    private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 10;
     //How long the stress test keeps running after all users are connected (in seconds)
-    private static final int MAX_USER_EXECUTION_LENGTH_SECONDS = 100;
+    private static final int MAX_USER_EXECUTION_LENGTH_SECONDS = 240;
+    //Generates a new token ever TOKEN_GENERATION_RATE_SECONDS if false, otherwise starts queue with full tokens
+    private static final boolean GRADUAL = true;
     /*
      * END CONFIG VALUES
      * */
@@ -54,6 +56,7 @@ public class Testsuite implements Runnable {
         //Termination logic
         while (!userPool.isShutdown()) {
             if (tokens.atCapacity()) {
+                System.err.println("Reached capacity at: " + LocalDateTime.now());
                 try {
                     TimeUnit.SECONDS.sleep(MAX_USER_EXECUTION_LENGTH_SECONDS);
                 } catch (InterruptedException ignored) {
@@ -65,6 +68,7 @@ public class Testsuite implements Runnable {
     }
 
     public ThesisApi init() {
+
         var properties = System.getProperties();
         properties.setProperty("jdk.internal.httpclient.disableHostnameVerification", Boolean.TRUE.toString());
 
@@ -72,6 +76,10 @@ public class Testsuite implements Runnable {
 
         //Setting first timestamp
         stats.save(new RequestStatistics(LocalDateTime.now(), null, "TEST START TIMESTAMP"));
+
+        if (!GRADUAL) {
+            tokens.fill(CAPACITY);
+        }
 
         switch (API) {
             case MONOLITH -> {
@@ -92,7 +100,8 @@ public class Testsuite implements Runnable {
     public void shutdown() {
         System.err.println("Shutting down at: " + LocalDateTime.now());
         try {
-            stats.getRequestStatisticsList();
+            stats.getRequestStatisticsList(API, CAPACITY, TOKEN_GENERATION_RATE_SECONDS, WORKFLOW_EXECUTION_RATE_SECONDS,
+                    MAX_USER_EXECUTION_LENGTH_SECONDS, GRADUAL);
         } catch (IOException e) {
             System.err.println("Couldn't get request stats");
         }

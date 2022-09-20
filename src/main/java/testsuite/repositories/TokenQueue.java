@@ -26,6 +26,14 @@ public class TokenQueue {
         return head.id() >= capacity;
     }
 
+    public void fill(int capacity) {
+        for (int i = 0; i < capacity; i++) {
+
+            tokenQueue.add(new UserConnectionToken(idCounter.getAndIncrement()));
+        }
+        System.err.println("Filled tokens up to: " + (capacity+20-tokenQueue.remainingCapacity()));
+    }
+
     public void add() {
         if (idCounter.get() >= capacity) {
 

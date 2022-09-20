@@ -6,6 +6,8 @@ import testsuite.repositories.entities.UserConnectionToken;
 import testsuite.workflows.ReadingWorkflow;
 import testsuite.workflows.WritingWorkflow;
 
+import java.time.LocalDateTime;
+
 public class WorkflowExecutor extends Thread {
     private final TokenDto jwt;
     private final ThesisApi api;
@@ -13,7 +15,7 @@ public class WorkflowExecutor extends Thread {
     public WorkflowExecutor(UserConnectionToken userConnectionToken, TokenDto jwt, ThesisApi api) {
         this.jwt = jwt;
         this.api = api;
-        System.out.println("Connected user number #" + (userConnectionToken.id() + 1));
+        System.out.println("Connected user number #" + (userConnectionToken.id() + 1) + " at: " + LocalDateTime.now());
     }
 
     public void run() {
