@@ -26,13 +26,13 @@ public class Testsuite implements Runnable {
      * CONFIG VALUES
      * */
     //API to stress test Monolith, OpenWhisk or OpenFaaS
-    private static final ApiType API = ApiType.OPENFAAS;
+    private static final ApiType API = ApiType.OPENWHISK;
     //Maximum connected users at a time
     private static final int CAPACITY = 50;
     //How often a new user connects (until capacity is reached)
     private static final int TOKEN_GENERATION_RATE_SECONDS = 5;
     //How often each user executes their workflows
-    private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 10;
+    private static final int WORKFLOW_EXECUTION_RATE_SECONDS = 5;
     //How long the stress test keeps running after all users are connected (in seconds)
     private static final int MAX_USER_EXECUTION_LENGTH_SECONDS = 240;
     //Generates a new token ever TOKEN_GENERATION_RATE_SECONDS if false, otherwise starts queue with full tokens
